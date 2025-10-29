@@ -8,6 +8,7 @@ import 'WishList_page/wishlist.dart'; // already imported
 import 'common_pages/issued_books_page.dart'; // added
 import 'common_pages/pay_fine_page.dart'; // added
 import 'common_pages/search_books_page.dart';
+import 'widgets/glow.dart';
 
 // Two-color mixed background (aesthetic gradient)
 // Feel free to tweak these four colors; the background animates between pairs.
@@ -997,6 +998,12 @@ class _HomePageState extends State<HomePage> {
           // NEW: Animated two-color mixed gradient background with soft glow orbs
           const Positioned.fill(child: _AnimatedBackground()),
 
+          // Ambient light overlays
+          const Positioned.fill(child: SparkleOverlay(count: 20)),
+          const Positioned.fill(
+            child: LightSweepOverlay(angleDeg: 18, widthFraction: 0.20),
+          ),
+
           // Content
           Positioned.fill(
             child: SafeArea(
@@ -1017,21 +1024,25 @@ class _HomePageState extends State<HomePage> {
                           vertical: 10,
                           horizontal: 16,
                         ),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            // Lighter overlay so it competes less with cards
-                            color: Colors.black.withOpacity(0.12),
-                            borderRadius: BorderRadius.circular(14),
-                            border: Border.all(
-                              color: Colors.white.withOpacity(0.15),
-                              width: 1,
+                        child: GlowContainer(
+                          color: _accent.withOpacity(0.3),
+                          blur: 18,
+                          borderRadius: BorderRadius.circular(14),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              // Lighter overlay so it competes less with cards
+                              color: Colors.black.withOpacity(0.12),
+                              borderRadius: BorderRadius.circular(14),
+                              border: Border.all(
+                                color: Colors.white.withOpacity(0.15),
+                                width: 1,
+                              ),
                             ),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 6,
-                          ),
-                          child: Column(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8,
+                              vertical: 6,
+                            ),
+                            child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
@@ -1596,12 +1607,17 @@ class _HomePageState extends State<HomePage> {
                                                   ),
                                                 );
                                               },
-                                              child: Container(
-                                                decoration: _frostCard(),
-                                                padding: const EdgeInsets.all(
-                                                  12,
-                                                ),
-                                                child: Row(
+                                              child: GlowContainer(
+                                                color: _accent.withOpacity(0.2),
+                                                blur: 16,
+                                                borderRadius:
+                                                    BorderRadius.circular(16),
+                                                child: Container(
+                                                  decoration: _frostCard(),
+                                                  padding: const EdgeInsets.all(
+                                                    12,
+                                                  ),
+                                                  child: Row(
                                                   children: [
                                                     ClipRRect(
                                                       borderRadius:
