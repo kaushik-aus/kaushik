@@ -8,6 +8,7 @@ import 'WishList_page/wishlist.dart'; // already imported
 import 'common_pages/issued_books_page.dart'; // added
 import 'common_pages/pay_fine_page.dart'; // added
 import 'common_pages/search_books_page.dart';
+import 'widgets/glow.dart'; // glow effects toolkit
 
 // Two-color mixed background (aesthetic gradient)
 // Feel free to tweak these four colors; the background animates between pairs.
@@ -997,6 +998,23 @@ class _HomePageState extends State<HomePage> {
           // NEW: Animated two-color mixed gradient background with soft glow orbs
           const Positioned.fill(child: _AnimatedBackground()),
 
+          // Ambient overlays
+          const Positioned.fill(
+            child: SparkleOverlay(
+              count: 24,
+              minSize: 8,
+              maxSize: 22,
+              period: Duration(seconds: 6),
+            ),
+          ),
+          const Positioned.fill(
+            child: LightSweepOverlay(
+              period: Duration(seconds: 7),
+              angleDeg: 18,
+              widthFraction: 0.22,
+            ),
+          ),
+
           // Content
           Positioned.fill(
             child: SafeArea(
@@ -1017,20 +1035,24 @@ class _HomePageState extends State<HomePage> {
                           vertical: 10,
                           horizontal: 16,
                         ),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            // Lighter overlay so it competes less with cards
-                            color: Colors.black.withOpacity(0.12),
-                            borderRadius: BorderRadius.circular(14),
-                            border: Border.all(
-                              color: Colors.white.withOpacity(0.15),
-                              width: 1,
+                        child: GlowContainer(
+                          color: Colors.white.withOpacity(0.3),
+                          blur: 20,
+                          spread: 0,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              // Lighter overlay so it competes less with cards
+                              color: Colors.black.withOpacity(0.12),
+                              borderRadius: BorderRadius.circular(14),
+                              border: Border.all(
+                                color: Colors.white.withOpacity(0.15),
+                                width: 1,
+                              ),
                             ),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 6,
-                          ),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8,
+                              vertical: 6,
+                            ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -1177,6 +1199,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ],
                           ),
+                        ),
                         ),
                       ),
                       // Search with dropdown suggestions (overlay-based)
@@ -1596,12 +1619,17 @@ class _HomePageState extends State<HomePage> {
                                                   ),
                                                 );
                                               },
-                                              child: Container(
-                                                decoration: _frostCard(),
-                                                padding: const EdgeInsets.all(
-                                                  12,
-                                                ),
-                                                child: Row(
+                                              child: GlowContainer(
+                                                color: const Color(0xFFE3D9FF)
+                                                    .withOpacity(0.5),
+                                                blur: 16,
+                                                spread: 0,
+                                                child: Container(
+                                                  decoration: _frostCard(),
+                                                  padding: const EdgeInsets.all(
+                                                    12,
+                                                  ),
+                                                  child: Row(
                                                   children: [
                                                     ClipRRect(
                                                       borderRadius:
@@ -1768,6 +1796,7 @@ class _HomePageState extends State<HomePage> {
                                                     ),
                                                   ],
                                                 ),
+                                              ),
                                               ),
                                             ),
                                           ),
