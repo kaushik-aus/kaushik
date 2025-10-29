@@ -1039,7 +1039,6 @@ class _HomePageState extends State<HomePage> {
                           color: Colors.white.withOpacity(0.3),
                           blur: 20,
                           spread: 0,
-                          borderRadius: BorderRadius.circular(14),
                           child: Container(
                             decoration: BoxDecoration(
                               // Lighter overlay so it competes less with cards
@@ -1625,8 +1624,6 @@ class _HomePageState extends State<HomePage> {
                                                     .withOpacity(0.5),
                                                 blur: 16,
                                                 spread: 0,
-                                                borderRadius:
-                                                    BorderRadius.circular(16),
                                                 child: Container(
                                                   decoration: _frostCard(),
                                                   padding: const EdgeInsets.all(
