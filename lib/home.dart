@@ -8,6 +8,7 @@ import 'WishList_page/wishlist.dart'; // already imported
 import 'common_pages/issued_books_page.dart'; // added
 import 'common_pages/pay_fine_page.dart'; // added
 import 'common_pages/search_books_page.dart';
+import 'widgets/glow.dart';
 
 // Two-color mixed background (aesthetic gradient)
 // Feel free to tweak these four colors; the background animates between pairs.
@@ -997,6 +998,10 @@ class _HomePageState extends State<HomePage> {
           // NEW: Animated two-color mixed gradient background with soft glow orbs
           const Positioned.fill(child: _AnimatedBackground()),
 
+          // Ambient overlays (above background, below content)
+          const Positioned.fill(child: SparkleOverlay()),
+          const Positioned.fill(child: LightSweepOverlay()),
+
           // Content
           Positioned.fill(
             child: SafeArea(
@@ -1017,21 +1022,25 @@ class _HomePageState extends State<HomePage> {
                           vertical: 10,
                           horizontal: 16,
                         ),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            // Lighter overlay so it competes less with cards
-                            color: Colors.black.withOpacity(0.12),
-                            borderRadius: BorderRadius.circular(14),
-                            border: Border.all(
-                              color: Colors.white.withOpacity(0.15),
-                              width: 1,
+                        child: GlowContainer(
+                          color: Colors.white.withOpacity(0.3),
+                          blur: 20,
+                          borderRadius: BorderRadius.circular(14),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              // Lighter overlay so it competes less with cards
+                              color: Colors.black.withOpacity(0.12),
+                              borderRadius: BorderRadius.circular(14),
+                              border: Border.all(
+                                color: Colors.white.withOpacity(0.15),
+                                width: 1,
+                              ),
                             ),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 6,
-                          ),
-                          child: Column(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8,
+                              vertical: 6,
+                            ),
+                            child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
@@ -1177,6 +1186,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ],
                           ),
+                        ),
                         ),
                       ),
                       // Search with dropdown suggestions (overlay-based)
@@ -1468,12 +1478,16 @@ class _HomePageState extends State<HomePage> {
                                         ]
                                       : List.generate(
                                           _filteredBooks.length,
-                                          (i) => Container(
+                                          (i) => GlowContainer(
+                                            color: const Color(0xFFD1EFDD).withOpacity(0.4),
+                                            blur: 16,
+                                            borderRadius: BorderRadius.circular(14),
                                             margin: const EdgeInsets.only(
                                               bottom: 12,
                                             ),
-                                            decoration: _frostRow(),
-                                            child: ListTile(
+                                            child: Container(
+                                              decoration: _frostRow(),
+                                              child: ListTile(
                                               leading: ClipRRect(
                                                 borderRadius:
                                                     BorderRadius.circular(8),
@@ -1525,6 +1539,7 @@ class _HomePageState extends State<HomePage> {
                                                 size: 18,
                                               ),
                                             ),
+                                          ),
                                           ),
                                         ),
                                 ),
